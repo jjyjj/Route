@@ -8,7 +8,7 @@ using Route.Api.Enties;
 
 namespace Route.Api.Services
 {
-    public class CompanyReponsitory : IComanyRepository
+    public class CompanyReponsitory : ICompanyRepository
     {
         private readonly RouteDbContext _context;
         public CompanyReponsitory(RouteDbContext context)
@@ -31,7 +31,7 @@ namespace Route.Api.Services
             {
                 employee.Id = Guid.NewGuid();
             }
-            _context.Companies.Add(company);
+            _context.Company.Add(company);
         }
         /// <summary>
         /// 添加员工
@@ -62,7 +62,7 @@ namespace Route.Api.Services
             {
                 throw new ArgumentNullException(nameof(companyId));
             }
-            return await _context.Companies.AnyAsync(x => x.Id == companyId);
+            return await _context.Company.AnyAsync(x => x.Id == companyId);
         }
         /// <summary>
         /// 删除公司
@@ -74,7 +74,7 @@ namespace Route.Api.Services
             {
                 throw new ArgumentNullException(nameof(company));
             }
-            _context.Companies.Remove(company);
+            _context.Company.Remove(company);
         }
         /// <summary>
         /// 删除员工
@@ -95,7 +95,7 @@ namespace Route.Api.Services
         /// <returns></returns>
         public async Task<IEnumerable<Company>> GetCompaniesAsync()
         {
-            return await _context.Companies.ToListAsync();
+            return await _context.Company.ToListAsync();
         }
         /// <summary>
         /// 根据id集合获取公司集合
@@ -108,7 +108,7 @@ namespace Route.Api.Services
             {
                 throw new ArgumentNullException(nameof(companyIds));
             }
-            return await _context.Companies
+            return await _context.Company
                 .Where(x => companyIds.Contains(x.Id))
                 .OrderBy(x => x.Name)
                 .ToListAsync();
@@ -126,7 +126,7 @@ namespace Route.Api.Services
             {
                 throw new ArgumentNullException(nameof(companyId));
             }
-            return await _context.Companies
+            return await _context.Company
                 .FirstOrDefaultAsync(x => x.Id == companyId);
         }
         /// <summary>
@@ -174,7 +174,7 @@ namespace Route.Api.Services
 
         public void UpdateCompany(Company company)
         {
-
+            // _context.Entry(company).State = EntityState.Modified;
         }
 
         public void UpdateEmployee(Employee employee)

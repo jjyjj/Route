@@ -13,8 +13,8 @@ namespace Route.Api.Data
             : base(options)
         {
         }
-        public DbSet<Company> Companies;
-        public DbSet<Employee> Employees;
+        public DbSet<Company> Company { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         //对实体字段进行限制条件：非空，最大长度，以及2个表的关系
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<Company>()

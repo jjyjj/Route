@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Route.Api.Services
 {
-    public interface IComanyRepository
+    public interface ICompanyRepository
     {
         Task<IEnumerable<Company>> GetCompaniesAsync();
         Task<Company> GetCompanyAsync(Guid companyId);

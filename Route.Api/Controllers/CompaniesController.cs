@@ -8,20 +8,33 @@ using System.Threading.Tasks;
 namespace Route.Api.Controllers
 {
     [ApiController]
+    [Route("api/companies")]
     public class CompaniesController : ControllerBase
     {
-        private readonly IComanyRepository _comanyRepository;
+        private readonly ICompanyRepository _companyRepository;
         //注入
-        public CompaniesController(IComanyRepository comanyRepository)
+        public CompaniesController(ICompanyRepository companyRepository)
         {
-            _comanyRepository = comanyRepository ?? throw new ArgumentNullException(nameof(comanyRepository));
+            _companyRepository = companyRepository ??
+                throw new ArgumentNullException(nameof(companyRepository));
         }
         [HttpGet]
         public async Task<IActionResult> GetCompanies()
         {
-            var companies = await _comanyRepository.GetCompaniesAsync();
+            var companies = await _companyRepository.GetCompaniesAsync();
             //序列化
-            return new JsonResult(companies);
+            return Ok(companies);
+        }
+        [HttpGet("{companyId}")]
+        public async Task<IActionResult> GetCompanie(Guid companyId)
+        {
+            var company = await _companyRepository.GetCompanyAsync(companyId);
+            if (company == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(company);
         }
     }
 }

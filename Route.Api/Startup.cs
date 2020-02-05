@@ -29,7 +29,7 @@ namespace Route.Api
         {
             services.AddControllers();
             //1 配置接口服务
-            services.AddScoped<IComanyRepository,CompanyReponsitory>();
+            services.AddScoped<ICompanyRepository,CompanyReponsitory>();
             //2 配置数据库服务
             services.AddDbContext<RouteDbContext>(option=> {
                 option.UseSqlite("Data source=route.db");
